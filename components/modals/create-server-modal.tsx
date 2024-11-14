@@ -4,7 +4,7 @@ import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from 'react-hook-form'
 import axios from "axios"
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 import {
     Dialog,
@@ -26,6 +26,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import FileUpload from "@/components/file-upload"
 import { useRouter } from "next/navigation"
+import { useModal } from "@/hooks/use-modal-store"
 
 const formSchema = z.object({
     name: z.string().min(1, {
@@ -36,15 +37,13 @@ const formSchema = z.object({
     })
 })
 
-const InitialModal = () => {
+export const CreateServerModal = () => {
 
-    const [isMounted, setIsMounted] = useState(false);
+    const {isOpen, onClose, type} = useModal();
 
     const router = useRouter();
 
-    useEffect(()=>{
-        setIsMounted(true)
-    }, [])
+    const isModalOpen = isOpen && type === "createServer";
 
     const form = useForm({
         resolver: zodResolver(formSchema),
@@ -58,23 +57,27 @@ const InitialModal = () => {
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
-            await axios.post("/api/servers/", values);
+            const response = await axios.post("/api/servers/", values);
+
+            const serverId = response.data.id;
 
             form.reset();
+            router.push(`/servers/${serverId}`);
             router.refresh();
-            window.location.reload();
+            onClose();
         } catch (error) {
             console.log(error);
             
         }
     }
 
-    if(!isMounted){
-        return null
+    const handleClose = () => {
+        form.reset();
+        onClose();
     }
 
     return (
-        <Dialog open>
+        <Dialog open={isModalOpen} onOpenChange={handleClose}>
             <DialogContent className='bg-white text-black p-0 overflow-hidden'>
                 <DialogHeader className='pt-8 px-6'>
                     <DialogTitle className='text-center text-2xl font-bold'>
@@ -138,5 +141,3 @@ const InitialModal = () => {
         </Dialog>
     )
 }
-
-export default InitialModal

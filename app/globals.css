@@ -2,8 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* globals.css */
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Geist', sans-serif;
 }
 
 @layer base {
