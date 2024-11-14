@@ -28,7 +28,7 @@ const ServerHeader = ({
                 className='focus:outline-none' asChild
             >
                 <button
-                    className='w-full text-md font-semibold px-3 flex items-center h-12 border-neutral-200 dark:border-neutral-800 border-b-2 hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition'
+                    className='w-full text-md font-semibold p-5 flex items-center h-14 border-neutral-200 dark:border-neutral-800 border-b-2 hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition'
                 >
                     {server.name}
                     <ChevronDown className='h-5 w-5 ml-auto'/>
@@ -48,6 +48,7 @@ const ServerHeader = ({
                 )}
                 {isAdmin && (
                     <DropdownMenuItem
+                        onClick={()=>onOpen("editServer", {server})}
                         className='px-3 py-2 text-sm cursor-pointer'
                     >
                         Server Setting
