@@ -57,8 +57,6 @@ export const MembersModal = () => {
             });
             
             const response = await axios.delete(url);
-
-            console.log(response);
             
             router.refresh();
             onOpen("members", { server: response.data });
@@ -79,11 +77,7 @@ export const MembersModal = () => {
                 }
             });
 
-            console.log(url)
-
             const response = await axios.patch(url, { role });
-
-            console.log(response);
             
             router.refresh();
             onOpen("members", { server: response.data });
