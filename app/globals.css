@@ -71,3 +71,9 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.auth-bg{
+  background-image: url('/bg-disc.png'); /* Correct path */
+  background-size: cover;
+  background-position: center;
+}

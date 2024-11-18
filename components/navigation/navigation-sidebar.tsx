@@ -48,7 +48,6 @@ const NavigationSidebar = async () => {
             <div className='flex flex-col items-center gap-y-4 pb-3 mt-auto'>
                 <ModeToggle />
                 <UserButton
-                    afterSignOutUrl='/'
                     appearance={{
                         elements: {
                             avatarBox: "h-[48px] w-[48px]"
