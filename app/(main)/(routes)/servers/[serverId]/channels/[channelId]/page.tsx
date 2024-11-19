@@ -1,5 +1,6 @@
 import { ChatHeader } from '@/components/chat/chat-header';
 import { ChatInput } from '@/components/chat/chat-input';
+import { ChatMessages } from '@/components/chat/chat-messages';
 import { currentProfile } from '@/lib/current-profile';
 import { db } from '@/lib/db';
 import { redirect } from 'next/navigation';
@@ -15,7 +16,7 @@ interface ChannelIdPageProps {
 const ChannelIdPage = async ({
   params
 }: ChannelIdPageProps) => {
-  const {serverId, channelId} = await params;
+  const { serverId, channelId } = await params;
   const profile = await currentProfile();
 
   if (!profile) return redirect("/sign-in");
@@ -42,7 +43,20 @@ const ChannelIdPage = async ({
         serverId={channel.serverId}
         type='channel'
       />
-      <div className='flex-1'>Future messages</div>
+      <ChatMessages 
+        member={member}
+        name={channel.name}
+        chatId={channel.id}
+        type='channel'
+        apiUrl='/api/messages'
+        socketUrl='/api/socket/messages'
+        socketQuery={{
+          channelId: channel.id,
+          serverId: channel.serverId
+        }}
+        paramKey="channelId"
+        paramValue={channel.id}
+      />
       <ChatInput
         name={channel.name}
         type="channel"

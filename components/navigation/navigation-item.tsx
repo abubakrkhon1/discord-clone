@@ -18,7 +18,6 @@ const NavigationItem = ({ id, imageUrl, name }: NavigationItemProps) => {
 
     useEffect(() => {
         // Prefetch the server page data
-        console.log('Prefetching server page');
         router.prefetch(`/servers/${id}`);
     }, [router, id]);
 

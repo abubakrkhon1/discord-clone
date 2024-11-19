@@ -65,7 +65,7 @@ export const MessageFileModal = () => {
             await axios.post(url, {
                 ...values,
                 content: values.fileUrl,
-            });
+            });            
 
             form.reset();
             router.refresh();
@@ -101,7 +101,6 @@ export const MessageFileModal = () => {
                                                     endpoint="messageFile"
                                                     value={field.value}
                                                     onChange={field.onChange}
-
                                                 />
                                             </FormControl>
                                         </FormItem>
