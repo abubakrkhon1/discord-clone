@@ -1,3 +1,4 @@
+'use client'
 import { useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useSocket } from "@/components/providers/socket-provider";
@@ -25,7 +26,7 @@ export const useChatSocket = ({
 
   useEffect(() => {
     if (!socket) {
-      console.log("Socket is not initialized.");
+      console.error("Socket is not initialized.");
       return;
     }
 
