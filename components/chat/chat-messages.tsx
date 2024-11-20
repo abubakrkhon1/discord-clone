@@ -1,12 +1,14 @@
 'use client';
 
 import { Member, Message, Profile } from "@prisma/client";
-import {format} from "date-fns"
+import { format } from "date-fns"
 import { ChatWelcome } from "./chat-welcome";
 import { useChatQuery } from "@/hooks/use-chat-query";
 import { Loader2, ServerCrash } from "lucide-react";
 import { Fragment } from "react";
 import { ChatItem } from "./chat-item";
+import { useChatSocket } from "@/hooks/use-chat-socket";
+import { useSocket } from "../providers/socket-provider";
 
 type MessageWithMemberWithProfile = Message & {
     member: Member & {
@@ -40,6 +42,9 @@ export const ChatMessages = ({
     type,
 }: ChatMessagesProps) => {
     const queryKey = `chat:${chatId}`;
+    const addKey = `chat:${chatId}:messages`;
+    const updateKey = `chat:${chatId}:messages:update`;
+    useChatSocket({ queryKey, addKey, updateKey });
 
     const {
         data,
