@@ -10,9 +10,7 @@ interface InviteCodePageProps {
 }
 
 const InvitePage = async ({ params }: InviteCodePageProps) => {
-    const params1 = await params; // Directly access inviteCode from params
-
-    const inviteCode = params1["invite-code"];
+    const inviteCode = params["invite-code"];
 
     const { redirectToSignIn } = await auth();
 
